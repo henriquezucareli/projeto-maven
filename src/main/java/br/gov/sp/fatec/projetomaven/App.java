@@ -22,7 +22,7 @@ public class App
             manager.getTransaction().begin();
             manager.persist(aluno);
             manager.getTransaction().commit();
-        } catch (final PersistenceException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
             manager.getTransaction().rollback();
         }

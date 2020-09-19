@@ -3,11 +3,14 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
         version="2.0">
+
     <persistence-unit name="avaliacao">
 
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
         <class>br.gov.sp.fatec.avaliacao.entity.Aluno</class>
+        <class>br.gov.sp.fatec.avaliacao.entity.Professor</class>
+        <class>br.gov.sp.fatec.avaliacao.entity.Trabalho</class>
                 
         <properties>
             <property name="javax.persistence.jdbc.driver"
