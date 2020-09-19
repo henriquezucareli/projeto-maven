@@ -29,7 +29,7 @@ public class Trabalho {
     private Date dataHoraEntrega;
     @Column(name = "tra_local_arquivo")
     private String localArquivo;   
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER) /*relacionamento muitos pra um*/
     @JoinColumn(name = "pro_avaliador_id")
     private Professor avaliador;
     @ManyToMany(fetch = FetchType.EAGER)
