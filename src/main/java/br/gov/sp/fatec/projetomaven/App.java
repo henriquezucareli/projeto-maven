@@ -5,19 +5,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
-
 import br.gov.sp.fatec.projetomaven.entity.Aluno;
+import br.gov.sp.fatec.projetomaven.entity.PersistenceManager;
 import br.gov.sp.fatec.projetomaven.entity.Professor;
 import br.gov.sp.fatec.projetomaven.entity.Trabalho;
 
 public class App 
 {
     public static void main(String[] args) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("avaliacao");
-        EntityManager manager = factory.createEntityManager();
+        
+        EntityManager manager = PersistenceManager.getInstance().getEntityManager();
 
         Aluno aluno = new Aluno();
         aluno.setNomeUsuario("alunobd");
