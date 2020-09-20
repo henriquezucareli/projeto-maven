@@ -1,3 +1,7 @@
+drop user 'user'@'localhost';
+
+drop schema avaliacao;
+
 create schema avaliacao;
 
 use avaliacao;

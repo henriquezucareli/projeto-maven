@@ -59,6 +59,14 @@ public class App
         for(Aluno al: trabalho.getAlunos()){
             System.out.println(al.getNomeUsuario());
         }
+
+        manager.remove(trabalho.getAvaliador());
+        for(Aluno al: trabalho.getAlunos()){
+            manager.remove(al);
+        }
+
+        manager.remove(trabalho);
+
         manager.close();
     }
 }
