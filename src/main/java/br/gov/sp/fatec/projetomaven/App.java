@@ -2,6 +2,7 @@ package br.gov.sp.fatec.projetomaven;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,12 +20,12 @@ public class App
         EntityManager manager = factory.createEntityManager();
 
         Aluno aluno = new Aluno();
-        aluno.setNomeUsuario("alunofatec");
+        aluno.setNomeUsuario("alunobd");
         aluno.setSenha("senha");
-        aluno.setRa(1234567891012L);
+        aluno.setRa(1234567891013L);
 
         Professor professor = new Professor();
-        professor.setNomeUsuario("professorlaviv");
+        professor.setNomeUsuario("proflaviv");
         professor.setSenha("senhaF0rte");
 
         Trabalho trabalho = new Trabalho();
@@ -47,6 +48,8 @@ public class App
             manager.getTransaction().rollback();
         }
 
+        manager.clear();
+
         aluno = manager.find(Aluno.class, aluno.getId());
         System.out.println(aluno.getId());
         System.out.println(aluno.getNomeUsuario());
@@ -54,19 +57,39 @@ public class App
             System.out.println(trab.getTitulo());
         }
 
+
         trabalho = manager.find(Trabalho.class, trabalho.getId());
         System.out.println(trabalho.getTitulo());
         for(Aluno al: trabalho.getAlunos()){
             System.out.println(al.getNomeUsuario());
         }
 
-        manager.remove(trabalho.getAvaliador());
-        for(Aluno al: trabalho.getAlunos()){
-            manager.remove(al);
+
+        try{
+            manager.getTransaction().begin();
+            professor = trabalho.getAvaliador();
+            trabalho.setAvaliador(null);
+            Set<Aluno> alunos = trabalho.getAlunos();
+            trabalho.setAlunos(null);
+            manager.remove(trabalho);
+            manager.remove(professor);
+            for(Aluno al: alunos){
+                manager.remove(al);
+            }
+            manager.getTransaction().commit();
+            
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            manager.getTransaction().rollback();
         }
 
-        manager.remove(trabalho);
+/*        manager.remove(trabalho.getAvaliador());
+        for(Aluno al: trabalho.getAlunos()){
+            manager.remove(al);
+        } 
 
+        manager.remove(trabalho);
+*/
         manager.close();
     }
 }
